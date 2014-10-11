@@ -1,0 +1,20 @@
+{
+	"name": "miyojs-filter-error_to_balloon",
+	"version": "0.0.1",
+	"description": "error_to_balloon - simple debug tool for Miyo",
+	"main": "error_to_balloon.js",
+	"scripts": {
+		"test": "mocha"
+	},
+	"dependencies": {
+	},
+	"author": {
+		"name": "narazaka",
+		"url": "http://narazaka.net/"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Narazaka/miyojs-filter-error_to_balloon.git"
+	}
+}
