@@ -2,20 +2,23 @@ chai = require 'chai'
 chai.should()
 expect = chai.expect
 sinon = require 'sinon'
-ShioriJK = require 'shiorijk'
+Miyo = require 'miyojs'
 MiyoFilters = require '../error_to_balloon.js'
 
 describe 'error_to_balloon_initialize filter', ->
 	it 'should replace make_internal_server_error()', ->
-		ms = sinon.stub()
-		ms.build_response = sinon.stub()
-		ms.build_response.returns new ShioriJK.Message.Response()
+		ms = new Miyo()
 		ms.default_response_headers = Charset: 'UTF-8'
-		argument = dummy: 'dummy'
-		request = sinon.stub()
-		return_argument = MiyoFilters.error_to_balloon_initialize.call ms, argument, request, 'OnTest', null
-		return_argument.should.be.deep.equal argument
+		for name, filter of MiyoFilters
+			ms.filters[name] = filter
+		entry =
+			filters: ['error_to_balloon_initialize']
+			argument:
+				dummy: 'dummy'
+		return_argument = ms.call_filters entry, null, '_load'
+		return_argument.should.be.deep.equal entry.argument
 		error = new Error 'guest\nguest'
+		request = sinon.stub()
 		response = ms.make_internal_server_error(error, request)
 		response.status_line.code.should.be.equal 200
 		response.headers.get('Charset').should.be.equal 'UTF-8'

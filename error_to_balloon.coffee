@@ -3,7 +3,7 @@
 unless MiyoFilters?
 	MiyoFilters = {}
 
-MiyoFilters.error_to_balloon_initialize = (argument, request, id, stash) ->
+MiyoFilters.error_to_balloon_initialize = type: 'through', filter: (argument, request, id, stash) ->
 	@make_internal_server_error = (error, request) ->
 		response = @build_response()
 		response.status_line.protocol = 'SHIORI'
